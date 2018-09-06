@@ -8,5 +8,5 @@ Pod::Spec.new do |s|
   s.author          = { "Ewelina Cylo" => "ewelina.cylo@tooploox.com" }
   s.platform        = :ios, "10.0"
   s.source          = { :path => "" } #TODO: Add valid source
-  s.source_files    = "Classes/**/*.swift"
+  s.source_files    = "Networking/Classes/**/*.swift"
 end

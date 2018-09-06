@@ -1,0 +1,15 @@
+platform :ios, '11.4'
+
+target 'NetworkingExample' do
+  use_frameworks!
+
+  pod 'Networking', :path => '../'
+
+  target 'NetworkingExampleTests' do
+    inherit! :search_paths
+    
+    pod 'Quick'
+    pod 'Nimble'
+  end
+
+end
