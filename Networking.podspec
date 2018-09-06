@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name            = "Networking"
-  s.version         = "0.0.2"
+  s.version         = "0.0.1"
   s.summary         = "HTTP networking library."
   s.description     = "HTTP networking library written in Swift."
   s.homepage        = "http://EXAMPLE/" #TODO: Add valid URL

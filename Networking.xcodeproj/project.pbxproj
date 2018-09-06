@@ -128,8 +128,7 @@
 		E44382FB21411E6700AF1B7F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E443830F21411ED100AF1B7F /* Encodable+Encoded.swift */,
-				E443831021411ED100AF1B7F /* Result.swift */,
+				F907660021418B6600F29954 /* Aux */,
 				E44382FE21411EA600AF1B7F /* Services */,
 				E44382FD21411EA000AF1B7F /* DataSources */,
 				E44382FC21411E9400AF1B7F /* AuthenticationTokenBuilder */,
@@ -203,6 +202,15 @@
 				E454955221412D4100CD73C2 /* KeyValueStorageDataSource.swift */,
 			);
 			path = KeyValueStorageDataSource;
+			sourceTree = "<group>";
+		};
+		F907660021418B6600F29954 /* Aux */ = {
+			isa = PBXGroup;
+			children = (
+				E443831021411ED100AF1B7F /* Result.swift */,
+				E443830F21411ED100AF1B7F /* Encodable+Encoded.swift */,
+			);
+			path = Aux;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -490,6 +498,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Networking/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -517,6 +526,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Networking/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
