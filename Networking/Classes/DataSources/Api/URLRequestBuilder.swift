@@ -32,7 +32,6 @@ public class StandardURLRequestBuilder: URLRequestBuilder {
         if let parameters = request.parameters, let body = (try? JSONSerialization.data(withJSONObject: parameters)) {
             urlRequest.httpBody = body
         }
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         if let headers = request.headers {
             for (key, value) in headers {
                 urlRequest.setValue(value, forHTTPHeaderField: key)
