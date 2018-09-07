@@ -3,7 +3,6 @@
 // Copyright (c) 2018 Tooploox. All rights reserved.
 //
 
-import Foundation
 import Quick
 import Nimble
 @testable import Networking
