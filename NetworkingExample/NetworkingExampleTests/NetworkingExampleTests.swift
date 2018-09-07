@@ -7,10 +7,10 @@
 //
 
 import XCTest
-@testable import NetworkingExample
 import Quick
 import Nimble
 import Networking
+@testable import NetworkingExample
 
 class NetworkingExampleTests: XCTestCase {
     
