@@ -129,6 +129,19 @@ class URLSessionApiDataSourceTests: QuickSpec {
                         }
                     }
                 }
+                
+                context("and sender returns downloaded MockData.senderJSONData") {
+                    beforeEach {
+                        sender.returnedDownloadData = (MockData.senderJSONData, nil)
+                        sut.download(fromURL: MockData.url, completion: { (result: Result<Data, ApiError>) in
+                            returnedDownloadResult = result
+                        })
+                    }
+                    
+                    it("returns MockData.downloaderData") {
+                        expect(returnedDownloadResult.value).toEventually(equal(MockData.senderJSONData))
+                    }
+                }
             }
         }
     }
