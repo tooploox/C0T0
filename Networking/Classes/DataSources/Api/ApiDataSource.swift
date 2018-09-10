@@ -57,7 +57,7 @@ public struct ApiRequest: Equatable {
 }
 
 public enum ApiError: Error {
-    case cannotParseData
+    case cannotParseData(String)
     case network
     case http(Int)
 }
@@ -66,8 +66,8 @@ extension ApiError: Equatable {
 
     public static func ==(lhs: ApiError, rhs: ApiError) -> Bool {
         switch (lhs, rhs) {
-            case (.cannotParseData, .cannotParseData):
-                return true
+            case (.cannotParseData(let lDescription), .cannotParseData(let rDescription)):
+                return lDescription == rDescription
             case (.http(let lCode), .http(let rCode)):
                 return lCode == rCode
             case (.network, .network):
@@ -76,6 +76,11 @@ extension ApiError: Equatable {
                 return false
         }
     }
+}
+
+public protocol JSONDecoderProtocol {
+
+    func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
 }
 
 public protocol ApiDataSource {

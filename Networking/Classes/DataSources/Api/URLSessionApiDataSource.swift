@@ -5,37 +5,45 @@
 
 import Foundation
 
+public struct ApiDataSourceConfiguration {
+    let keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
+
+    init(keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) {
+        self.keyDecodingStrategy = keyDecodingStrategy
+    }
+}
+
 public class URLSessionApiDataSource: ApiDataSource {
 
     private let urlRequestBuilder: URLRequestBuilder
     private let urlRequestSender: URLRequestSender
-    private let converter: URLRequestSenderErrorConverter
-    private let keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
+    private let errorConverter: URLRequestSenderErrorConverter
+    private let jsonDecoder: JSONDecoder
 
     public init(
         urlRequestBuilder: URLRequestBuilder,
         urlRequestSender: URLRequestSender,
         converter: URLRequestSenderErrorConverter,
-        keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .convertFromSnakeCase) {
+        configuration: ApiDataSourceConfiguration) {
+
         self.urlRequestBuilder = urlRequestBuilder
         self.urlRequestSender = urlRequestSender
-        self.converter = converter
-        self.keyDecodingStrategy = keyDecodingStrategy
+        self.errorConverter = converter
+        self.jsonDecoder = JSONDecoder()
+        jsonDecoder.keyDecodingStrategy = configuration.keyDecodingStrategy
     }
 
     public func send<T: Decodable>(request: ApiRequest, completion: @escaping (Result<T, ApiError>) -> Void) {
-        urlRequestSender.send(urlRequest: urlRequestBuilder.build(from: request)) { [converter, keyDecodingStrategy] data, error in
+        urlRequestSender.send(urlRequest: urlRequestBuilder.build(from: request)) { [errorConverter, jsonDecoder] data, error in
             if let error = error {
-                completion(.failure(converter.convert(urlSessionSenderError: error)))
+                completion(.failure(errorConverter.convert(urlSessionSenderError: error)))
             } else if let data = data {
                 do {
                     let sanitizedData = data.isEmpty ? "{}".data(using: .utf8)! : data
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = keyDecodingStrategy
-                    let object = try decoder.decode(T.self, from: sanitizedData)
+                    let object = try jsonDecoder.decode(T.self, from: sanitizedData)
                     completion(.success(object))
                 } catch let error {
-                    print("[ERROR] \(error)")
+                    completion(.failure(.cannotParseData(error.localizedDescription)))
                 }
             } else {
                 fatalError("This should not happen")
@@ -44,9 +52,9 @@ public class URLSessionApiDataSource: ApiDataSource {
     }
 
     public func download(fromURL url: URL, completion: @escaping (Result<Data, ApiError>) -> Void) {
-        urlRequestSender.download(url: url) { [converter] data, error in
+        urlRequestSender.download(url: url) { [errorConverter] data, error in
             if let error = error {
-                completion(.failure(converter.convert(urlSessionSenderError: error)))
+                completion(.failure(errorConverter.convert(urlSessionSenderError: error)))
             } else if let data = data {
                 completion(.success(data))
             } else {
