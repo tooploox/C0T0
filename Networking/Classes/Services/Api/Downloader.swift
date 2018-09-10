@@ -15,8 +15,8 @@ extension StandardApiService {
             self.apiDataSource = apiDataSource
         }
 
-        func download(fromURL url: URL, completion: @escaping (Result<Data, ApiError>) -> Void) {
-            download(fromURL: url, retries: 3, completion: completion)
+        func download(fromURL url: URL, configuration: RequestConfiguration, completion: @escaping (Result<Data, ApiError>) -> Void) {
+            download(fromURL: url, retries: configuration.numberOfRetries, completion: completion)
         }
 
         private func download(fromURL url: URL, retries: Int, completion: @escaping (Result<Data, ApiError>) -> Void) {
@@ -39,7 +39,7 @@ extension StandardApiService {
         }
 
         private func handle(networkError error: ApiError, url: URL, retries: Int, completion: @escaping (Result<Data, ApiError>) -> Void) {
-            if retries == 1 {
+            if retries == 0 {
                 completion(.failure(error))
             } else {
                 download(fromURL: url, retries: retries - 1, completion: completion)

@@ -12,14 +12,14 @@ extension StandardApiService {
         private let apiDataSource: ApiDataSource
         private let requestDecorator: RequestDecorator
 
-        init(apiDataSource: ApiDataSource, requestDecorator: RequestDecorator) {
+        init(apiDataSource: ApiDataSource, requestDecorator: @escaping RequestDecorator) {
             self.apiDataSource = apiDataSource
             self.requestDecorator = requestDecorator
         }
 
-        func send<T: Decodable>(request: ApiRequest, retries: Int, completion: @escaping (Result<T, ApiError>) -> Void) {
-            let decoratedRequest = requestDecorator.decorate(request: request)
-            send(decoratedRequest: decoratedRequest, retries: retries, completion: completion)
+        func send<T: Decodable>(request: ApiRequest, configuration: RequestConfiguration, completion: @escaping (Result<T, ApiError>) -> Void) {
+            let decoratedRequest = requestDecorator(request)
+            send(decoratedRequest: decoratedRequest, retries: configuration.numberOfRetries, completion: completion)
         }
 
         private func send<T: Decodable>(decoratedRequest: ApiRequest, retries: Int, completion: @escaping (Result<T, ApiError>) -> Void) {
@@ -42,7 +42,7 @@ extension StandardApiService {
         }
 
         private func handle<T: Decodable>(networkError error: ApiError, request: ApiRequest, retries: Int, completion: @escaping (Result<T, ApiError>) -> Void) {
-            if retries == 1 {
+            if retries == 0 {
                 completion(.failure(error))
             } else {
                 send(
