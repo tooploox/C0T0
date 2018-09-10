@@ -42,7 +42,7 @@ public struct SessionConfiguration {
     }
 }
 
-public class StandardApiService {
+public class ApiService {
 
     private let configuration: SessionConfiguration
 

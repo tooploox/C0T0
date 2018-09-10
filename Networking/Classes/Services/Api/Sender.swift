@@ -5,7 +5,7 @@
 
 import Foundation
 
-extension StandardApiService {
+extension ApiService {
 
     class Sender {
 
