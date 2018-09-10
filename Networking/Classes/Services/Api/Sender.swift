@@ -36,7 +36,7 @@ extension ApiService {
             switch error {
                 case .network:
                     handle(networkError: error, request: request, retries: retries, completion: completion)
-                case .http(_), .cannotParseData:
+                case .http(_), .cannotParseData, .cannotBuildRequest:
                     completion(.failure(error))
             }
         }

@@ -19,24 +19,12 @@ public struct RequestConfiguration {
 
 public struct SessionConfiguration {
 
-    struct URLComponents {
-        let scheme: String
-        let host: String
-        let pathPrefix: String
-
-        init(scheme: String, host: String, pathPrefix: String = "") {
-            self.scheme = scheme
-            self.host = host
-            self.pathPrefix = pathPrefix
-        }
-    }
-
-    let urlComponents: URLComponents
+    let host: String
     let keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
     let requestDecorator: RequestDecorator
 
-    init(urlComponents: URLComponents, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, requestDecorator: @escaping RequestDecorator = { $0 }) {
-        self.urlComponents = urlComponents
+    public init(host: String, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, requestDecorator: @escaping RequestDecorator = { $0 }) {
+        self.host = host
         self.keyDecodingStrategy = keyDecodingStrategy
         self.requestDecorator = requestDecorator
     }
@@ -53,11 +41,7 @@ public class ApiService {
         self.configuration = configuration
 
         let apiDataSource = URLSessionApiDataSource(
-            urlRequestBuilder: StandardURLRequestBuilder(
-                scheme: configuration.urlComponents.scheme,
-                host: configuration.urlComponents.host,
-                pathPrefix: configuration.urlComponents.pathPrefix
-            ),
+            urlRequestBuilder: StandardURLRequestBuilder(host:configuration.host),
             urlRequestSender: StandardURLRequestSender(urlSession: URLSession.shared),
             converter: StandardURLRequestSenderErrorConverter(),
             configuration: ApiDataSourceConfiguration()

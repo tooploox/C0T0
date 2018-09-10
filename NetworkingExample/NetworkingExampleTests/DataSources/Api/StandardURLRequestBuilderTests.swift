@@ -14,11 +14,7 @@ class StandardURLRequestBuilderTests: QuickSpec {
             var sut: StandardURLRequestBuilder!
 
             beforeEach {
-                sut = StandardURLRequestBuilder(
-                    scheme: MockData.scheme,
-                    host: MockData.host,
-                    pathPrefix: MockData.pathPrefix
-                )
+                sut = StandardURLRequestBuilder(host: MockData.host)
             }
 
             context("when endpoint, http method, parameters and headers are set as in MockData") {
@@ -37,7 +33,7 @@ class StandardURLRequestBuilderTests: QuickSpec {
                 }
 
                 it("returns URLRequest with endpoint set to MockData.endpoint") {
-                    expect(urlRequest.url!).to(equal(URL(string: MockData.path + MockData.endpoint)))
+                    expect(urlRequest.url!).to(equal(URL(string: MockData.host + MockData.endpoint)))
                 }
 
                 it("returns URLRequest with method set to MockData.httpMethod") {
@@ -59,19 +55,15 @@ class StandardURLRequestBuilderTests: QuickSpec {
 }
 
 private struct MockData {
-    static let scheme = "http"
-    static let host = "example.com"
-    static let pathPrefix = "/"
-    static let endpoint = "someEndpoint"
+    static let host = "http://example.com"
+    static let endpoint = "/someEndpoint"
     static let httpMethod = HTTPMethod.GET
     static let parameters = ["id": 123]
     static let headers = ["someKey": "someValue"]
 
     static var path: String {
         var components = URLComponents()
-        components.scheme = MockData.scheme
         components.host = MockData.host
-        components.path = MockData.pathPrefix
         return components.string!
     }
 }

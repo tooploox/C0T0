@@ -167,7 +167,7 @@ private class URLRequestBuilderMock: URLRequestBuilder {
 
     var returnedRequest: URLRequest!
 
-    func build(from request: ApiRequest) -> URLRequest {
+    func build(from request: ApiRequest) -> URLRequest? {
         inputRequest = request
         invocationCounter += 1
         return returnedRequest

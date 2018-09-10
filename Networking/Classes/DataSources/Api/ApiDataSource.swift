@@ -60,6 +60,7 @@ public enum ApiError: Error {
     case cannotParseData(String)
     case network
     case http(Int)
+    case cannotBuildRequest
 }
 
 extension ApiError: Equatable {
@@ -71,6 +72,8 @@ extension ApiError: Equatable {
             case (.http(let lCode), .http(let rCode)):
                 return lCode == rCode
             case (.network, .network):
+                return true
+            case (.cannotBuildRequest, .cannotBuildRequest):
                 return true
             default:
                 return false

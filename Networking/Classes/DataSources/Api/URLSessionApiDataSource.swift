@@ -34,7 +34,12 @@ public class URLSessionApiDataSource: ApiDataSource {
     }
 
     public func send<T: Decodable>(request: ApiRequest, completion: @escaping (Result<T, ApiError>) -> Void) {
-        urlRequestSender.send(urlRequest: urlRequestBuilder.build(from: request)) { [errorConverter, jsonDecoder] data, error in
+        guard let request = urlRequestBuilder.build(from: request) else {
+            completion(.failure(.cannotBuildRequest))
+            return
+        }
+        
+        urlRequestSender.send(urlRequest: request) { [errorConverter, jsonDecoder] data, error in
             if let error = error {
                 completion(.failure(errorConverter.convert(urlSessionSenderError: error)))
             } else if let data = data {

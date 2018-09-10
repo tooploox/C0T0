@@ -6,28 +6,20 @@
 import Foundation
 
 public protocol URLRequestBuilder {
-    func build(from request: ApiRequest) -> URLRequest
+    func build(from request: ApiRequest) -> URLRequest?
 }
 
 public class StandardURLRequestBuilder: URLRequestBuilder {
 
-    private let scheme: String
     private let host: String
-    private let pathPrefix: String
 
-    public init(scheme: String, host: String, pathPrefix: String) {
-        self.scheme = scheme
+    public init(host: String) {
         self.host = host
-        self.pathPrefix = pathPrefix
     }
 
-    public func build(from request: ApiRequest) -> URLRequest {
-        var components = URLComponents()
-        components.scheme = scheme
-        components.host = host
-        components.path = pathPrefix + request.endpoint
-
-        var urlRequest = URLRequest(url: components.url!)
+    public func build(from request: ApiRequest) -> URLRequest? {
+        guard let  url = URL(string: host + request.endpoint) else { return nil }
+        var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.toString()
         if let parameters = request.parameters, let body = (try? JSONSerialization.data(withJSONObject: parameters)) {
             urlRequest.httpBody = body
