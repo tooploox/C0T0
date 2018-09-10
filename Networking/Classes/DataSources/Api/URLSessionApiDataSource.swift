@@ -9,13 +9,13 @@ public class URLSessionApiDataSource: ApiDataSource {
 
     private let urlRequestBuilder: URLRequestBuilder
     private let urlRequestSender: URLRequestSender
-    private let converter: UrlRequestSenderErrorConverter
+    private let converter: URLRequestSenderErrorConverter
     private let keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
 
     public init(
         urlRequestBuilder: URLRequestBuilder,
         urlRequestSender: URLRequestSender,
-        converter: UrlRequestSenderErrorConverter,
+        converter: URLRequestSenderErrorConverter,
         keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .convertFromSnakeCase) {
         self.urlRequestBuilder = urlRequestBuilder
         self.urlRequestSender = urlRequestSender
@@ -24,9 +24,7 @@ public class URLSessionApiDataSource: ApiDataSource {
     }
 
     public func send<T: Decodable>(request: ApiRequest, completion: @escaping (Result<T, ApiError>) -> Void) {
-        urlRequestSender.send(
-            urlRequest: urlRequestBuilder.build(from: request)
-        ) { [converter, keyDecodingStrategy] data, error in
+        urlRequestSender.send(urlRequest: urlRequestBuilder.build(from: request)) { [converter, keyDecodingStrategy] data, error in
             if let error = error {
                 completion(.failure(converter.convert(urlSessionSenderError: error)))
             } else if let data = data {

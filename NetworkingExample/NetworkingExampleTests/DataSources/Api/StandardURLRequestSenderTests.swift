@@ -26,7 +26,7 @@ class StandardURLRequestSenderTests: QuickSpec {
                         urlSessionMock.dataTaskWithRequestReturnedValue = (MockData.data, response, nil)
 
                         var returnedData: Data!
-                        var returnedError: UrlRequestSenderError!
+                        var returnedError: URLRequestSenderError!
                         sut.send(urlRequest: MockData.request) { data, error in
                             returnedData = data
                             returnedError = error
@@ -43,14 +43,14 @@ class StandardURLRequestSenderTests: QuickSpec {
                         urlSessionMock.dataTaskWithRequestReturnedValue = (nil, response, nil)
 
                         var returnedData: Data!
-                        var returnedError: UrlRequestSenderError!
+                        var returnedError: URLRequestSenderError!
                         sut.send(urlRequest: MockData.request) { data, error in
                             returnedData = data
                             returnedError = error
                         }
 
                         expect(returnedData).toEventually(beNil())
-                        expect(returnedError).toEventually(equal(UrlRequestSenderError.http(404)))
+                        expect(returnedError).toEventually(equal(URLRequestSenderError.http(404)))
                     }
                 }
 
@@ -60,14 +60,14 @@ class StandardURLRequestSenderTests: QuickSpec {
                         urlSessionMock.dataTaskWithRequestReturnedValue = (nil, nil, error)
 
                         var returnedData: Data!
-                        var returnedError: UrlRequestSenderError!
+                        var returnedError: URLRequestSenderError!
                         sut.send(urlRequest: MockData.request) { data, error in
                             returnedData = data
                             returnedError = error
                         }
 
                         expect(returnedData).toEventually(beNil())
-                        expect(returnedError).toEventually(equal(UrlRequestSenderError.network(error)))
+                        expect(returnedError).toEventually(equal(URLRequestSenderError.network(error)))
                     }
                 }
             }
@@ -79,7 +79,7 @@ class StandardURLRequestSenderTests: QuickSpec {
                         urlSessionMock.dataTaskWithUrlReturnedValue = (MockData.data, response, nil)
 
                         var returnedData: Data!
-                        var returnedError: UrlRequestSenderError!
+                        var returnedError: URLRequestSenderError!
                         sut.download(url: MockData.url) { data, error in
                             returnedData = data
                             returnedError = error
@@ -96,14 +96,14 @@ class StandardURLRequestSenderTests: QuickSpec {
                         urlSessionMock.dataTaskWithUrlReturnedValue = (nil, response, nil)
 
                         var returnedData: Data!
-                        var returnedError: UrlRequestSenderError!
+                        var returnedError: URLRequestSenderError!
                         sut.download(url: MockData.url) { data, error in
                             returnedData = data
                             returnedError = error
                         }
 
                         expect(returnedData).toEventually(beNil())
-                        expect(returnedError).toEventually(equal(UrlRequestSenderError.http(404)))
+                        expect(returnedError).toEventually(equal(URLRequestSenderError.http(404)))
                     }
                 }
 
@@ -113,14 +113,14 @@ class StandardURLRequestSenderTests: QuickSpec {
                         urlSessionMock.dataTaskWithUrlReturnedValue = (nil, nil, error)
 
                         var returnedData: Data!
-                        var returnedError: UrlRequestSenderError!
+                        var returnedError: URLRequestSenderError!
                         sut.download(url: MockData.url) { data, error in
                             returnedData = data
                             returnedError = error
                         }
 
                         expect(returnedData).toEventually(beNil())
-                        expect(returnedError).toEventually(equal(UrlRequestSenderError.network(error)))
+                        expect(returnedError).toEventually(equal(URLRequestSenderError.network(error)))
                     }
                 }
             }

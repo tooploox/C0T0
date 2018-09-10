@@ -33,7 +33,7 @@ extension StandardApiService {
             switch error {
                 case .network:
                     handle(networkError: error, url: url, retries: retries, completion: completion)
-                case .http(_), .unprocessableError, .cannotParseData, .authorizationError:
+                case .http(_), .cannotParseData:
                     completion(.failure(error))
             }
         }

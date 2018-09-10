@@ -5,11 +5,11 @@
 
 import Foundation
 
-public enum UrlRequestSenderError: Error, Equatable {
+public enum URLRequestSenderError: Error, Equatable {
     case http(Int)
     case network(Error)
 
-    public static func ==(lhs: UrlRequestSenderError, rhs: UrlRequestSenderError) -> Bool {
+    public static func ==(lhs: URLRequestSenderError, rhs: URLRequestSenderError) -> Bool {
         switch (lhs, rhs) {
         case (.http(let lCode), .http(let rCode)):
             return lCode == rCode
@@ -22,8 +22,8 @@ public enum UrlRequestSenderError: Error, Equatable {
 }
 
 public protocol URLRequestSender {
-    func send(urlRequest: URLRequest, completion: @escaping (Data?, UrlRequestSenderError?) -> Void)
-    func download(url: URL, completion: @escaping (Data?, UrlRequestSenderError?) -> Void)
+    func send(urlRequest: URLRequest, completion: @escaping (Data?, URLRequestSenderError?) -> Void)
+    func download(url: URL, completion: @escaping (Data?, URLRequestSenderError?) -> Void)
 }
 
 public protocol URLSessionProtocol {
@@ -43,21 +43,21 @@ public class StandardURLRequestSender: URLRequestSender {
         self.urlSession = urlSession
     }
     
-    public func send(urlRequest: URLRequest, completion: @escaping (Data?, UrlRequestSenderError?) -> Void) {
+    public func send(urlRequest: URLRequest, completion: @escaping (Data?, URLRequestSenderError?) -> Void) {
         let task = urlSession.dataTask(with: urlRequest) { [weak self] data, response, error in
             self?.handleResponse(data: data, response: response, error: error, completion: completion)
         }
         task.resume()
     }
 
-    public func download(url: URL, completion: @escaping (Data?, UrlRequestSenderError?) -> Void) {
+    public func download(url: URL, completion: @escaping (Data?, URLRequestSenderError?) -> Void) {
         let task = urlSession.dataTask(with: url) { [weak self] (data, response, error) in
             self?.handleResponse(data: data, response: response, error: error, completion: completion)
         }
         task.resume()
     }
 
-    private func handleResponse(data: Data?, response: URLResponse?, error: Error?, completion: (Data?, UrlRequestSenderError?) -> Void) {
+    private func handleResponse(data: Data?, response: URLResponse?, error: Error?, completion: (Data?, URLRequestSenderError?) -> Void) {
         if let error = error {
             completion(nil, .network(error))
             return

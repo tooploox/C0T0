@@ -57,11 +57,9 @@ public struct ApiRequest: Equatable {
 }
 
 public enum ApiError: Error {
-    case authorizationError
     case cannotParseData
     case network
     case http(Int)
-    case unprocessableError(Any?)
 }
 
 extension ApiError: Equatable {
@@ -70,13 +68,9 @@ extension ApiError: Equatable {
         switch (lhs, rhs) {
             case (.cannotParseData, .cannotParseData):
                 return true
-            case (.unprocessableError, .unprocessableError):
-                return true
             case (.http(let lCode), .http(let rCode)):
                 return lCode == rCode
             case (.network, .network):
-                return true
-            case (.authorizationError, .authorizationError):
                 return true
             default:
                 return false
