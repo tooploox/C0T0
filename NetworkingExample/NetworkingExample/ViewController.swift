@@ -31,10 +31,10 @@ final class ViewController: UIViewController {
     
         setupTableView()
         
-        requestRepos(for: "google")
+        requestRepositories(for: "google")
     }
     
-    private func requestRepos(for organization: String) {
+    private func requestRepositories(for organization: String) {
         
         let apiRequest = ApiRequest(endpoint: "/orgs/\(organization)/repos", method: .GET)
         
