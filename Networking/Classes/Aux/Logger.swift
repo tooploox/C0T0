@@ -8,7 +8,9 @@
 import Foundation
 
 final class Logger {
+
     private let loggingEnabled: Bool
+
     init(loggingEnabled: Bool) {
         self.loggingEnabled = loggingEnabled
     }

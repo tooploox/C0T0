@@ -9,7 +9,7 @@ public struct ApiDataSourceConfiguration {
     let keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
     let loggingEnabled: Bool
 
-    init(keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, loggingEnabled: Bool = true) {
+    init(keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, loggingEnabled: Bool = false) {
         self.keyDecodingStrategy = keyDecodingStrategy
         self.loggingEnabled = loggingEnabled
     }

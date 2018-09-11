@@ -33,10 +33,6 @@ public struct ApiRequest: Equatable {
         self.parameters = parameters
         self.headers = headers
     }
-
-    init(endpoint: String, method: HTTPMethod, headers: HTTPHeaders? = nil, object: Encodable) {
-        self.init(endpoint: endpoint, method: method, parameters: object.dictionary, headers: headers)
-    }
     
     public static func == (lhs: ApiRequest, rhs: ApiRequest) -> Bool {
         let equalParameters: Bool
