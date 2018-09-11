@@ -9,7 +9,8 @@ public enum Result<V, E: Error> {
     case success(V)
     case failure(E)
 
-    @discardableResult func ifSuccess<R>(closure: (V) -> R) -> ElseResult<E, R> {
+    @discardableResult
+    public func ifSuccess<R>(closure: (V) -> R) -> ElseResult<E, R> {
         switch self {
             case .success(let value):
                 return .success(closure(value))
@@ -18,7 +19,7 @@ public enum Result<V, E: Error> {
         }
     }
 
-    var value: V? {
+    public var value: V? {
         if case .success(let value) = self {
             return value
         } else {
@@ -26,7 +27,7 @@ public enum Result<V, E: Error> {
         }
     }
 
-    var error: E? {
+    public var error: E? {
         if case .failure(let error) = self {
             return error
         } else {
@@ -34,20 +35,20 @@ public enum Result<V, E: Error> {
         }
     }
 
-    var isSuccess: Bool {
+    public var isSuccess: Bool {
         return value != nil
     }
 
-    var isFailure: Bool {
+    public var isFailure: Bool {
         return error != nil
     }
 }
 
-enum ElseResult<E: Error, R> {
+public enum ElseResult<E: Error, R> {
     case success(R)
     case failure(E)
 
-    func `elseReturn`(closure: (E) -> R) -> R {
+    public func `elseReturn`(closure: (E) -> R) -> R {
         switch self {
             case .success(let value):
                 return value
@@ -56,7 +57,7 @@ enum ElseResult<E: Error, R> {
         }
     }
 
-    func `else`(closure: (E) -> Void) {
+    public func `else`(closure: (E) -> Void) {
         if case .failure(let error) = self {
             closure(error)
         }

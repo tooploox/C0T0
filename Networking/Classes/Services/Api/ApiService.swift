@@ -52,15 +52,6 @@ public class ApiService {
 
     }
 
-//    public init(apiDataSource: ApiDataSource, authenticationTokenBuilder: AuthenticationTokenBuilder) {
-//        let requestDecorator = RequestDecorator(authenticationTokenBuilder: authenticationTokenBuilder)
-//        self.downloader = Downloader(apiDataSource: apiDataSource)
-//        self.sender = Sender(
-//            apiDataSource: apiDataSource,
-//            requestDecorator: requestDecorator
-//        )
-//    }
-
     open func send<T: Decodable>(request: ApiRequest, configuration: RequestConfiguration = .standard, completion: @escaping (Result<T, ApiError>) -> Void) {
         sender.send(request: request, configuration: configuration, completion: completion)
     }

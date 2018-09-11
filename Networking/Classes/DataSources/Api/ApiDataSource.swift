@@ -81,12 +81,7 @@ extension ApiError: Equatable {
     }
 }
 
-public protocol JSONDecoderProtocol {
-
-    func decode<T>(_ type: T.Type, from data: Data) throws -> T where T : Decodable
-}
-
-public protocol ApiDataSource {
+protocol ApiDataSource {
     func send<T:Decodable>(request: ApiRequest, completion: @escaping (Result<T, ApiError>) -> Void)
     func download(fromURL url: URL, completion: @escaping(Result<Data, ApiError>) -> Void)
 }
