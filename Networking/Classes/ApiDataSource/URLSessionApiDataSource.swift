@@ -5,7 +5,7 @@
 
 import Foundation
 
-public struct ApiDataSourceConfiguration {
+struct ApiDataSourceConfiguration {
     let keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
     let loggingEnabled: Bool
 
@@ -15,7 +15,7 @@ public struct ApiDataSourceConfiguration {
     }
 }
 
-public class URLSessionApiDataSource: ApiDataSource {
+class URLSessionApiDataSource: ApiDataSource {
 
     private let urlRequestBuilder: URLRequestBuilder
     private let urlRequestSender: URLRequestSender
@@ -23,7 +23,7 @@ public class URLSessionApiDataSource: ApiDataSource {
     private let jsonDecoder: JSONDecoder
     private let logger: Logger
     
-    public init(
+    init(
         urlRequestBuilder: URLRequestBuilder,
         urlRequestSender: URLRequestSender,
         converter: URLRequestSenderErrorConverter,
@@ -37,7 +37,7 @@ public class URLSessionApiDataSource: ApiDataSource {
         logger = Logger(loggingEnabled: configuration.loggingEnabled)
     }
 
-    public func send<T: Decodable>(request: ApiRequest, completion: @escaping (Result<T, ApiError>) -> Void) {
+    func send<T: Decodable>(request: ApiRequest, completion: @escaping (Result<T, ApiError>) -> Void) {
         guard let request = urlRequestBuilder.build(from: request) else {
             completion(.failure(.cannotBuildRequest))
             return
@@ -68,7 +68,7 @@ public class URLSessionApiDataSource: ApiDataSource {
         }
     }
 
-    public func download(fromURL url: URL, completion: @escaping (Result<Data, ApiError>) -> Void) {
+    func download(fromURL url: URL, completion: @escaping (Result<Data, ApiError>) -> Void) {
         urlRequestSender.download(url: url) { [errorConverter] data, error in
             if let error = error {
                 completion(.failure(errorConverter.convert(urlSessionSenderError: error)))

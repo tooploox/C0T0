@@ -5,19 +5,19 @@
 
 import Foundation
 
-public protocol URLRequestBuilder {
+protocol URLRequestBuilder {
     func build(from request: ApiRequest) -> URLRequest?
 }
 
-public class StandardURLRequestBuilder: URLRequestBuilder {
+class StandardURLRequestBuilder: URLRequestBuilder {
 
     private let host: String
 
-    public init(host: String) {
+    init(host: String) {
         self.host = host
     }
 
-    public func build(from request: ApiRequest) -> URLRequest? {
+    func build(from request: ApiRequest) -> URLRequest? {
         guard let  url = URL(string: host + request.endpoint) else { return nil }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.toString()

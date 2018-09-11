@@ -5,7 +5,7 @@
 
 import Foundation
 
-public enum URLRequestSenderError: Error, Equatable {
+enum URLRequestSenderError: Error, Equatable {
     case http(Int)
     case network(Error)
 
@@ -21,12 +21,12 @@ public enum URLRequestSenderError: Error, Equatable {
     }
 }
 
-public protocol URLRequestSender {
+protocol URLRequestSender {
     func send(urlRequest: URLRequest, completion: @escaping (Data?, URLRequestSenderError?) -> Void)
     func download(url: URL, completion: @escaping (Data?, URLRequestSenderError?) -> Void)
 }
 
-public protocol URLSessionProtocol {
+protocol URLSessionProtocol {
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) -> URLSessionDataTask
     func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) -> URLSessionDataTask
 }
@@ -34,8 +34,7 @@ public protocol URLSessionProtocol {
 extension URLSession: URLSessionProtocol { }
 
 
-
-public class StandardURLRequestSender: URLRequestSender {
+class StandardURLRequestSender: URLRequestSender {
 
     private let urlSession: URLSessionProtocol
 

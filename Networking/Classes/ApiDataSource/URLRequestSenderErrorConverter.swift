@@ -5,7 +5,7 @@
 
 import Foundation
 
-public protocol URLRequestSenderErrorConverter {
+protocol URLRequestSenderErrorConverter {
     func convert(urlSessionSenderError: URLRequestSenderError) -> ApiError
 }
 
