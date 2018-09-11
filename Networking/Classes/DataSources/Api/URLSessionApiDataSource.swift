@@ -7,9 +7,11 @@ import Foundation
 
 public struct ApiDataSourceConfiguration {
     let keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
+    let loggingEnabled: Bool
 
-    init(keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) {
+    init(keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, loggingEnabled: Bool = true) {
         self.keyDecodingStrategy = keyDecodingStrategy
+        self.loggingEnabled = loggingEnabled
     }
 }
 
@@ -19,7 +21,8 @@ public class URLSessionApiDataSource: ApiDataSource {
     private let urlRequestSender: URLRequestSender
     private let errorConverter: URLRequestSenderErrorConverter
     private let jsonDecoder: JSONDecoder
-
+    private let logger: Logger
+    
     public init(
         urlRequestBuilder: URLRequestBuilder,
         urlRequestSender: URLRequestSender,
@@ -31,6 +34,7 @@ public class URLSessionApiDataSource: ApiDataSource {
         self.errorConverter = converter
         self.jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = configuration.keyDecodingStrategy
+        logger = Logger(loggingEnabled: configuration.loggingEnabled)
     }
 
     public func send<T: Decodable>(request: ApiRequest, completion: @escaping (Result<T, ApiError>) -> Void) {
@@ -39,16 +43,24 @@ public class URLSessionApiDataSource: ApiDataSource {
             return
         }
         
-        urlRequestSender.send(urlRequest: request) { [errorConverter, jsonDecoder] data, error in
+        logger.log(request)
+        
+        urlRequestSender.send(urlRequest: request) { [logger, errorConverter, jsonDecoder] data, error in
+            logger.log(data)
+           
             if let error = error {
-                completion(.failure(errorConverter.convert(urlSessionSenderError: error)))
+                let apiError = (errorConverter.convert(urlSessionSenderError: error))
+                completion(.failure(apiError))
+                logger.log(apiError)
             } else if let data = data {
                 do {
                     let sanitizedData = data.isEmpty ? "{}".data(using: .utf8)! : data
                     let object = try jsonDecoder.decode(T.self, from: sanitizedData)
                     completion(.success(object))
                 } catch let error {
-                    completion(.failure(.cannotParseData(error.localizedDescription)))
+                    let apiError = ApiError.cannotParseData(error.localizedDescription)
+                    logger.log(apiError)
+                    completion(.failure(apiError))
                 }
             } else {
                 fatalError("This should not happen")
@@ -68,4 +80,3 @@ public class URLSessionApiDataSource: ApiDataSource {
         }
     }
 }
-
