@@ -8,6 +8,6 @@ Pod::Spec.new do |s|
   s.author          = { "TPLX iOS team" => "ios@tooploox.com" }
   s.platform        = :ios, "10.0"
   s.source          = { :git => "https://github.com/tooploox/C0T0.git", :tag => "v0.1.0" }
-  s.source_files    = "Networking/**/*.swift"
+  s.source_files    = "C0T0/**/*.swift"
   s.swift_version   = "4.1"
 end
