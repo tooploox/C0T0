@@ -1,12 +1,13 @@
 Pod::Spec.new do |s|
   s.name            = "Networking"
-  s.version         = "0.0.1"
+  s.version         = "0.1.0"
   s.summary         = "HTTP networking library."
   s.description     = "HTTP networking library written in Swift."
-  s.homepage        = "http://EXAMPLE/" #TODO: Add valid URL
+  s.homepage        = "https://github.com/tooploox/Networking-iOS"
   s.license         = "MIT"
-  s.author          = { "Ewelina Cylo" => "ewelina.cylo@tooploox.com" }
+  s.author          = { "Tplx guys" => "ios@tooploox.com" }
   s.platform        = :ios, "10.0"
-  s.source          = { :path => "" } #TODO: Add valid source
+  s.source          = { :git => "https://github.com/tooploox/Networking-iOS.git", :tag => "v0.1.0" }
   s.source_files    = "Networking/**/*.swift"
+  s.swift_version   = "4.1"
 end
