@@ -9,7 +9,7 @@
 import Foundation
 import Quick
 import Nimble
-@testable import Networking
+@testable import C0T0
 
 class DownloaderTests: QuickSpec {
     override func spec() {

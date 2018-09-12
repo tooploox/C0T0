@@ -6,7 +6,7 @@
 import Foundation
 import Quick
 import Nimble
-@testable import Networking
+@testable import C0T0
 
 class StandardURLRequestSenderErrorConverterTests: QuickSpec {
     override func spec() {

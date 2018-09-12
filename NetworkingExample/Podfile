@@ -1,11 +1,11 @@
 platform :ios, '11.4'
 
-target 'NetworkingExample' do
+target 'C0T0Example' do
   use_frameworks!
 
-  pod 'Networking', :path => '../'
+  pod 'C0T0', :path => '../'
 
-  target 'NetworkingExampleTests' do
+  target 'C0T0ExampleTests' do
     inherit! :search_paths
     
     pod 'Quick', '~> 1.3.0'
