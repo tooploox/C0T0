@@ -6,6 +6,7 @@ import Foundation
 
 public typealias HTTPParameters = [String: Any]
 public typealias HTTPHeaders = [String: String]
+public typealias HTTPBody = [String: Any]
 typealias JSONDictionary = [String: Any]
 
 public enum HTTPMethod: String, Equatable {
@@ -23,14 +24,16 @@ public struct ApiRequest {
 
     let endpoint: String
     let method: HTTPMethod
-    let parameters: HTTPParameters?
+    let urlParameters: HTTPParameters?
     let headers: HTTPHeaders?
+    let httpBody: HTTPBody?
 
-    public init(endpoint: String, method: HTTPMethod, parameters: HTTPParameters? = nil, headers: HTTPHeaders? = nil) {
+    public init(endpoint: String, method: HTTPMethod, urlParameters: HTTPParameters? = nil, httpBody: HTTPBody? = nil ,headers: HTTPHeaders? = nil) {
         self.endpoint = endpoint
         self.method = method
-        self.parameters = parameters
+        self.urlParameters = urlParameters
         self.headers = headers
+        self.httpBody = httpBody
     }
 }
 
@@ -38,7 +41,7 @@ extension ApiRequest: Equatable {
 
     public static func == (lhs: ApiRequest, rhs: ApiRequest) -> Bool {
         let equalParameters: Bool
-        switch (lhs.parameters, rhs.parameters) {
+        switch (lhs.urlParameters, rhs.urlParameters) {
         case (nil, nil):
             equalParameters = true
         case let (leftParameters?, rightParameters?):
@@ -46,10 +49,20 @@ extension ApiRequest: Equatable {
         default:
             equalParameters = false
         }
-
+        
+        let equalHttpBodyParameters: Bool
+        switch (lhs.httpBody, rhs.httpBody) {
+        case (nil, nil):
+            equalHttpBodyParameters = true
+        case let (leftParameters?, rightParameters?):
+            equalHttpBodyParameters = NSDictionary(dictionary: leftParameters).isEqual(to: rightParameters)
+        default:
+            equalHttpBodyParameters = false
+        }
         return lhs.endpoint == rhs.endpoint &&
             lhs.method == rhs.method &&
             lhs.headers == rhs.headers &&
-            equalParameters
+            equalParameters &&
+            equalHttpBodyParameters
     }
 }

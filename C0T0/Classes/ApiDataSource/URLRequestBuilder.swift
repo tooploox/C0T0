@@ -18,12 +18,21 @@ class StandardURLRequestBuilder: URLRequestBuilder {
     }
 
     func build(from request: ApiRequest) -> URLRequest? {
-        guard let  url = URL(string: host + request.endpoint) else { return nil }
+        var urlParametersString = ""
+        if let urlParameters = request.urlParameters {
+            for (key, value) in urlParameters {
+                urlParametersString += "&\(key)=\(value)"
+            }
+        }
+
+        guard let  url = URL(string: host + request.endpoint + urlParametersString) else { return nil }
+        
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.toString()
-        if let parameters = request.parameters, let body = (try? JSONSerialization.data(withJSONObject: parameters)) {
+        if let parameters = request.httpBody, let body = (try? JSONSerialization.data(withJSONObject: parameters)) {
             urlRequest.httpBody = body
         }
+        
         if let headers = request.headers {
             for (key, value) in headers {
                 urlRequest.setValue(value, forHTTPHeaderField: key)
