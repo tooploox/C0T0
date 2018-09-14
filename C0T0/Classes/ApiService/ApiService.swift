@@ -46,7 +46,7 @@ public class ApiService {
             urlRequestBuilder: StandardURLRequestBuilder(host:configuration.host),
             urlRequestSender: StandardURLRequestSender(urlSession: URLSession.shared),
             converter: StandardURLRequestSenderErrorConverter(),
-            configuration: ApiDataSourceConfiguration(loggingEnabled: configuration.loggingEnabled)
+            configuration: ApiDataSourceConfiguration(keyDecodingStrategy: configuration.keyDecodingStrategy, loggingEnabled: configuration.loggingEnabled)
         )
 
         sender = Sender(apiDataSource: apiDataSource, requestDecorator: configuration.requestDecorator)
