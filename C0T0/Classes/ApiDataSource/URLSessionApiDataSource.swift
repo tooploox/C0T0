@@ -15,7 +15,7 @@ struct ApiDataSourceConfiguration {
     }
 }
 
-class URLSessionApiDataSource: ApiDataSource {
+final class URLSessionApiDataSource: ApiDataSource {
 
     private let urlRequestBuilder: URLRequestBuilder
     private let urlRequestSender: URLRequestSender
