@@ -22,7 +22,7 @@ final class ViewController: UIViewController {
     private let tableView = UITableView()
     
     //Session configuration
-    private let sessionConfiguration = SessionConfiguration(host: "https://api.github.com")
+    private let sessionConfiguration = SessionConfiguration(host: "https://api.github.com", loggingEnabled: true)
     private lazy var apiService = ApiService(configuration: sessionConfiguration)
 
     override func viewDidLoad() {
