@@ -9,14 +9,14 @@ import Foundation
 
 final class Logger {
 
-    private let loggingEnabled: Bool
+    private let isLoggingEnabled: Bool
 
-    init(loggingEnabled: Bool) {
-        self.loggingEnabled = loggingEnabled
+    init(isLoggingEnabled: Bool) {
+        self.isLoggingEnabled = isLoggingEnabled
     }
     
     func log(_ object: Any?) {
-        guard loggingEnabled, let object = object else { return }
+        guard isLoggingEnabled, let object = object else { return }
        
         if object is URLRequest {
             print("Request\n\(object)\n")

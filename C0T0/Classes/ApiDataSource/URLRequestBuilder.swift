@@ -10,7 +10,6 @@ protocol URLRequestBuilder {
 }
 
 class StandardURLRequestBuilder: URLRequestBuilder {
-
     private let host: String
 
     init(host: String) {
@@ -18,12 +17,15 @@ class StandardURLRequestBuilder: URLRequestBuilder {
     }
 
     func build(from request: ApiRequest) -> URLRequest? {
-        guard let  url = URL(string: host + request.endpoint) else { return nil }
-        var urlRequest = URLRequest(url: url)
+        guard var components = URLComponents(string: host) else { return nil }
+
+        components.path = request.endpoint
+        components.queryItems = request.urlParameters?.map { URLQueryItem(name: "\($0.key)", value: "\($0.value)") }
+    
+        var urlRequest = URLRequest(url: components.url!)
         urlRequest.httpMethod = request.method.toString()
-        if let parameters = request.parameters, let body = (try? JSONSerialization.data(withJSONObject: parameters)) {
-            urlRequest.httpBody = body
-        }
+        urlRequest.httpBody = request.httpBody
+        
         if let headers = request.headers {
             for (key, value) in headers {
                 urlRequest.setValue(value, forHTTPHeaderField: key)
