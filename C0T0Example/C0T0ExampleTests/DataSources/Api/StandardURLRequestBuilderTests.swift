@@ -34,7 +34,7 @@ class StandardURLRequestBuilderTests: QuickSpec {
                 }
 
                 it("returns URLRequest with endpoint set to MockData.endpoint") {
-                    expect(urlRequest.url!).to(equal(URL(string: MockData.host + MockData.endpoint + "&\(MockData.urlParameters.keys.first!)=\(MockData.urlParameters.values.first!)")))
+                    expect(urlRequest.url!).to(equal(URL(string: MockData.host + MockData.endpoint + "?" + MockData.urlParametersString)))
                 }
 
                 it("returns URLRequest with method set to MockData.httpMethod") {
@@ -42,7 +42,7 @@ class StandardURLRequestBuilderTests: QuickSpec {
                 }
 
                 it("returns URLRequest with proper contained MockData.parameters") {
-                    let expectedBody = try! JSONSerialization.data(withJSONObject: MockData.httpBody)
+                    let expectedBody = MockData.httpBody
                     expect(urlRequest.httpBody!).to(equal(expectedBody))
                 }
 
@@ -74,16 +74,22 @@ class StandardURLRequestBuilderTests: QuickSpec {
 }
 
 private struct MockData {
-    static let host = "http://example.com"
+    static let host = "https://example.com"
     static let endpoint = "/someEndpoint"
     static let httpMethod = HTTPMethod.GET
-    static let urlParameters = ["id": 123]
-    static let httpBody = ["token": "someToken"]
+    static let urlParameters = ["id": 123, "test": "test1"]  as [String : Any]
+    static let httpBody = "sample data".data(using: .utf8)
     static let headers = ["someKey": "someValue"]
-
+    
     static var path: String {
         var components = URLComponents()
         components.host = MockData.host
         return components.string!
+    }
+    
+    static var urlParametersString: String {
+        return urlParameters.map { (key, value) in
+            "\(key)=\(value)"
+            }.joined(separator: "&")
     }
 }

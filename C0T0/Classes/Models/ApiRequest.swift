@@ -6,7 +6,6 @@ import Foundation
 
 public typealias HTTPParameters = [String: Any]
 public typealias HTTPHeaders = [String: String]
-public typealias HTTPBody = [String: Any]
 typealias JSONDictionary = [String: Any]
 
 public enum HTTPMethod: String, Equatable {
@@ -26,9 +25,9 @@ public struct ApiRequest {
     let method: HTTPMethod
     let urlParameters: HTTPParameters?
     let headers: HTTPHeaders?
-    let httpBody: HTTPBody?
+    let httpBody: Data?
 
-    public init(endpoint: String, method: HTTPMethod, urlParameters: HTTPParameters? = nil, httpBody: HTTPBody? = nil ,headers: HTTPHeaders? = nil) {
+    public init(endpoint: String, method: HTTPMethod, urlParameters: HTTPParameters? = nil, httpBody: Data? = nil ,headers: HTTPHeaders? = nil) {
         self.endpoint = endpoint
         self.method = method
         self.urlParameters = urlParameters
@@ -38,7 +37,6 @@ public struct ApiRequest {
 }
 
 extension ApiRequest: Equatable {
-
     public static func == (lhs: ApiRequest, rhs: ApiRequest) -> Bool {
         let equalParameters: Bool
         switch (lhs.urlParameters, rhs.urlParameters) {
@@ -50,19 +48,10 @@ extension ApiRequest: Equatable {
             equalParameters = false
         }
         
-        let equalHttpBodyParameters: Bool
-        switch (lhs.httpBody, rhs.httpBody) {
-        case (nil, nil):
-            equalHttpBodyParameters = true
-        case let (leftParameters?, rightParameters?):
-            equalHttpBodyParameters = NSDictionary(dictionary: leftParameters).isEqual(to: rightParameters)
-        default:
-            equalHttpBodyParameters = false
-        }
         return lhs.endpoint == rhs.endpoint &&
             lhs.method == rhs.method &&
             lhs.headers == rhs.headers &&
             equalParameters &&
-            equalHttpBodyParameters
+            lhs.httpBody == rhs.httpBody
     }
 }

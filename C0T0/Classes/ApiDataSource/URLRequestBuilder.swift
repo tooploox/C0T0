@@ -10,28 +10,40 @@ protocol URLRequestBuilder {
 }
 
 class StandardURLRequestBuilder: URLRequestBuilder {
-
+    private enum Constants {
+        static let http = "http"
+        static let https = "https"
+        static let slashes = "://"
+        static let httpProtocol = Constants.http + Constants.slashes
+        static let httpsProtocol = Constants.https + Constants.slashes
+    }
+    
     private let host: String
-
+    private let scheme: String
     init(host: String) {
+        var host = host
+        var scheme = ""
+        if host.contains(Constants.httpProtocol) {
+            host = host.replacingOccurrences(of:Constants.httpProtocol , with: "")
+            scheme = Constants.http
+        } else if host.contains(Constants.httpsProtocol) {
+            host = host.replacingOccurrences(of: Constants.httpsProtocol, with: "")
+            scheme = Constants.https
+        }
         self.host = host
+        self.scheme = scheme
     }
 
     func build(from request: ApiRequest) -> URLRequest? {
-        var urlParametersString = ""
-        if let urlParameters = request.urlParameters {
-            for (key, value) in urlParameters {
-                urlParametersString += "&\(key)=\(value)"
-            }
-        }
-
-        guard let  url = URL(string: host + request.endpoint + urlParametersString) else { return nil }
-        
-        var urlRequest = URLRequest(url: url)
+        var components = URLComponents()
+        components.scheme = scheme
+        components.host = host
+        components.path = request.endpoint
+        components.queryItems = request.urlParameters?.map { URLQueryItem(name: "\($0.key)", value: "\($0.value)") }
+    
+        var urlRequest = URLRequest(url: components.url!)
         urlRequest.httpMethod = request.method.toString()
-        if let parameters = request.httpBody, let body = (try? JSONSerialization.data(withJSONObject: parameters)) {
-            urlRequest.httpBody = body
-        }
+        urlRequest.httpBody = request.httpBody
         
         if let headers = request.headers {
             for (key, value) in headers {
