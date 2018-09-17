@@ -22,11 +22,13 @@ public struct SessionConfiguration {
     let host: String
     let keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
     let requestDecorator: RequestDecorator
+    let loggingEnabled: Bool
 
-    public init(host: String, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, requestDecorator: @escaping RequestDecorator = { $0 }) {
+    public init(host: String, keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, loggingEnabled: Bool = false, requestDecorator: @escaping RequestDecorator = { $0 }) {
         self.host = host
         self.keyDecodingStrategy = keyDecodingStrategy
         self.requestDecorator = requestDecorator
+        self.loggingEnabled = loggingEnabled
     }
 }
 
@@ -44,12 +46,11 @@ public class ApiService {
             urlRequestBuilder: StandardURLRequestBuilder(host:configuration.host),
             urlRequestSender: StandardURLRequestSender(urlSession: URLSession.shared),
             converter: StandardURLRequestSenderErrorConverter(),
-            configuration: ApiDataSourceConfiguration()
+            configuration: ApiDataSourceConfiguration(keyDecodingStrategy: configuration.keyDecodingStrategy, loggingEnabled: configuration.loggingEnabled)
         )
 
         sender = Sender(apiDataSource: apiDataSource, requestDecorator: configuration.requestDecorator)
         downloader = Downloader(apiDataSource: apiDataSource)
-
     }
 
     open func send<T: Decodable>(request: ApiRequest, configuration: RequestConfiguration = .standard, completion: @escaping (Result<T, ApiError>) -> Void) {
