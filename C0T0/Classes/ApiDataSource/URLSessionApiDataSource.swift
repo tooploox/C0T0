@@ -7,11 +7,11 @@ import Foundation
 
 struct ApiDataSourceConfiguration {
     let keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy
-    let loggingEnabled: Bool
+    let isLoggingEnabled: Bool
 
-    init(keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, loggingEnabled: Bool = false) {
+    init(keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, isLoggingEnabled: Bool = false) {
         self.keyDecodingStrategy = keyDecodingStrategy
-        self.loggingEnabled = loggingEnabled
+        self.isLoggingEnabled = isLoggingEnabled
     }
 }
 
@@ -34,7 +34,7 @@ class URLSessionApiDataSource: ApiDataSource {
         self.errorConverter = converter
         self.jsonDecoder = JSONDecoder()
         jsonDecoder.keyDecodingStrategy = configuration.keyDecodingStrategy
-        logger = Logger(loggingEnabled: configuration.loggingEnabled)
+        logger = Logger(isLoggingEnabled: configuration.isLoggingEnabled)
     }
 
     func send<T: Decodable>(request: ApiRequest, completion: @escaping (Result<T, ApiError>) -> Void) {
