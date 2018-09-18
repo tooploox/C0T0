@@ -1,6 +1,6 @@
 [![Build Status](https://app.bitrise.io/app/e92e109959b2fd4a/status.svg?token=RK3sadyzv8puC80GhNLq3w&branch=develop)](https://app.bitrise.io/app/e92e109959b2fd4a)
 
-C0T0 - simply networking library for iOS based on NSURLSession 
+C0T0 - simple networking library for iOS based on NSURLSession 
 ## Installation
 
 ### CocoaPods
@@ -43,9 +43,9 @@ Next create instance of `ApiService`
     private lazy var apiService = ApiService(configuration: sessionConfiguration)
 ```
 
-Remember to retain the `apiService` object instead of creating local variable inside a function's scope, otherways your object may be released before the response will be received.
+Remember to retain the `apiService` object instead of creating local variable inside a function's scope, otherwise your object may be released before the response will be received.
 
-Here's an example of `requestRepositories(for ogranization)` function with setting repositories array for success or showing the error alert in case of failure. For parsing the results we're using `Codable` models. So for the Result you have to provide a generic type which is conforming to `Codable` protocol.
+Here's an example of `requestRepositories(for:)` function with setting repositories array for success or showing the error alert in case of failure. For parsing the results we're using `Codable` models. So for the `Result` you have to provide a generic type which is conforming to `Codable` protocol.
 
 ```swift
 private func requestRepositories(for organization: String) {
@@ -95,7 +95,7 @@ If your request needs JSON encoded parameters you can achieve that in that way:
 
 ### Download content
 
-`ApiService` supports also downloading the content. 
+`ApiService` also supports downloading. 
 
 ```swift
         apiService.download(from: url) { (result: Result<Data, ApiError>) in
