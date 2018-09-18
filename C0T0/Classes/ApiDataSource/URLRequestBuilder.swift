@@ -19,7 +19,7 @@ class StandardURLRequestBuilder: URLRequestBuilder {
     func build(from request: ApiRequest) -> URLRequest? {
         guard var components = URLComponents(string: host) else { return nil }
 
-        components.path = request.endpoint
+        components.path += request.endpoint
         components.queryItems = request.urlParameters?.map { URLQueryItem(name: "\($0.key)", value: "\($0.value)") }
     
         var urlRequest = URLRequest(url: components.url!)
