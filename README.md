@@ -35,7 +35,8 @@ If you're interested in logging requests, responses and errors, just enable logg
 ```swift 
     private let sessionConfiguration = SessionConfiguration(
                                            host: "https://api.github.com",
-                                           loggingEnabled: true)
+                                           loggingEnabled: true
+                                       )
 ```
 
 Next create instance of `ApiService`
@@ -70,7 +71,8 @@ If your request needs an URL encoded parameters just create the request like bel
         let apiRequest = ApiRequest(
                              endpoint: "/endpoint",
                              method: .GET, 
-                             urlParameters: ["sampleKey": "sampleValue"])
+                             urlParameters: ["sampleKey": "sampleValue"]
+                         )
 ```
 
 ### Making a POST request with headers
@@ -89,7 +91,8 @@ If your request needs JSON encoded parameters you can achieve that in that way:
                              endpoint: "/users",
                              method: .POST,
                              httpBody: postJSONData,
-                             headers: ["Content-Type": "application/json"])
+                             headers: ["Content-Type": "application/json"]
+                         )
        
 ```
 
@@ -100,7 +103,7 @@ If your request needs JSON encoded parameters you can achieve that in that way:
 ```swift
         apiService.download(from: url) { (result: Result<Data, ApiError>) in
             result.ifSuccess(closure: { data in
-                [...]
+                // Your's code goes here
             })
         }
 ```
