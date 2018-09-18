@@ -33,8 +33,9 @@ Create an object of `SessionConfiguration` with specified host.
 If you're interested in logging requests, responses and errors, just enable logging in `SessionConfiguration` `init` method. By default logging is disable (also the default value is set so you can skip it in init method).
 
 ```swift 
-    private let sessionConfiguration = SessionConfiguration(host: "https://api.github.com",
-                                                            loggingEnabled: true)
+    private let sessionConfiguration = SessionConfiguration(
+                                           host: "https://api.github.com",
+                                           loggingEnabled: true)
 ```
 
 Next create instance of `ApiService`
@@ -66,9 +67,10 @@ private func requestRepositories(for organization: String) {
 
 If your request needs an URL encoded parameters just create the request like below: 
 ```swift
-        let apiRequest = ApiRequest(endpoint: "/endpoint",
-                                    method: .GET, 
-                                    urlParameters: ["sampleKey": "sampleValue"])
+        let apiRequest = ApiRequest(
+                             endpoint: "/endpoint",
+                             method: .GET, 
+                             urlParameters: ["sampleKey": "sampleValue"])
 ```
 
 ### Making a POST request with headers
@@ -83,10 +85,11 @@ If your request needs JSON encoded parameters you can achieve that in that way:
                         }
                         """
         let postJSONData = postJSON.data(using: .utf8)
-        let apiRequest = ApiRequest(endpoint: "/users",
-                                    method: .POST,
-                                    httpBody: postJSONData,
-                                    headers: ["Content-Type": "application/json"])
+        let apiRequest = ApiRequest(
+                             endpoint: "/users",
+                             method: .POST,
+                             httpBody: postJSONData,
+                             headers: ["Content-Type": "application/json"])
        
 ```
 
