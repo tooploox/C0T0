@@ -1,4 +1,4 @@
-[![Build Status](https://app.bitrise.io/app/e92e109959b2fd4a/status.svg?token=RK3sadyzv8puC80GhNLq3w&branch=develop)](https://app.bitrise.io/app/e92e109959b2fd4a)
+[![Build Status](https://app.bitrise.io/app/e92e109959b2fd4a/status.svg?token=RK3sadyzv8puC80GhNLq3w)](https://app.bitrise.io/app/e92e109959b2fd4a)
 
 C0T0 - simple networking library for iOS based on NSURLSession 
 ## Installation
