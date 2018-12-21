@@ -13,7 +13,7 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<target name>' do
-  pod 'C0T0', '~> 0.1.0'
+  pod 'C0T0', '~> 0.2.0'
 end
 
 ```
