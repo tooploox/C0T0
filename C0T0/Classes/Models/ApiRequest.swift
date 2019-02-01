@@ -21,11 +21,11 @@ public enum HTTPMethod: String, Equatable {
 
 public struct ApiRequest {
 
-    let endpoint: String
-    let method: HTTPMethod
-    let urlParameters: HTTPParameters?
-    let headers: HTTPHeaders?
-    let httpBody: Data?
+    public let endpoint: String
+    public let method: HTTPMethod
+    public let urlParameters: HTTPParameters?
+    public let headers: HTTPHeaders?
+    public let httpBody: Data?
 
     public init(endpoint: String, method: HTTPMethod, urlParameters: HTTPParameters? = nil, httpBody: Data? = nil ,headers: HTTPHeaders? = nil) {
         self.endpoint = endpoint
