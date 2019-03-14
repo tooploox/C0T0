@@ -53,14 +53,18 @@ final class URLSessionApiDataSource: ApiDataSource {
                 completion(.failure(apiError))
                 logger.log(apiError)
             } else if let data = data {
-                do {
-                    let sanitizedData = data.isEmpty ? "{}".data(using: .utf8)! : data
-                    let object = try jsonDecoder.decode(T.self, from: sanitizedData)
-                    completion(.success(object))
-                } catch let error {
-                    let apiError = ApiError.cannotParseData(error.localizedDescription)
-                    logger.log(apiError)
-                    completion(.failure(apiError))
+                if T.self == Data.self {
+                    completion(.success(data as! T))
+                } else {
+                    do {
+                        let sanitizedData = data.isEmpty ? "{}".data(using: .utf8)! : data
+                        let object = try jsonDecoder.decode(T.self, from: sanitizedData)
+                        completion(.success(object))
+                    } catch let error {
+                        let apiError = ApiError.cannotParseData(error.localizedDescription)
+                        logger.log(apiError)
+                        completion(.failure(apiError))
+                    }
                 }
             } else {
                 fatalError("This should not happen")

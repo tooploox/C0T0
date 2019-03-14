@@ -1,5 +1,5 @@
 PODS:
-  - C0T0 (0.1.0)
+  - C0T0 (0.2.1)
   - Nimble (7.1.3)
   - Quick (1.3.1)
 
@@ -18,7 +18,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  C0T0: fa2963166908b67f3ff20fbfb95f647d5c04ccd1
+  C0T0: 8a418e427dc13f14a44d0e19c52fbf362902c372
   Nimble: 2839b01d1b31f6a6a7777a221f0d91cf52e8e27b
   Quick: d17304d58d0d169dd0bd1c6e5c28e3318de32a1a
 

@@ -104,6 +104,22 @@ class URLSessionApiDataSourceTests: QuickSpec {
                         expect(returnedResult.error).toEventually(equal(MockData.invalidJSONError))
                     }
                 }
+                
+                context("and generic type T is Data") {
+                    
+                    var returnedDataResult: Result<Data, ApiError>!
+                    
+                    beforeEach {
+                        sender.returnedSendData = (MockData.rawData, nil)
+                        sut.send(request: MockData.apiRequest) { (result: Result<Data, ApiError>) in
+                            returnedDataResult = result
+                        }
+                    }
+                    
+                    it("return raw Data") {
+                        expect(returnedDataResult.value).toEventually(equal(MockData.rawData))
+                    }
+                }
             }
 
             context("when input url is MockData.url") {
@@ -158,6 +174,7 @@ private struct MockData {
     static let convertedSenderError = ApiError.http(404)
     static let parsedJSONObject = MockModel(id: 1)
     static let invalidJSONError = ApiError.cannotParseData("The data couldn’t be read because it isn’t in the correct format.")
+    static let rawData = "5897239572952947295t9812759823749242".data(using: .utf8)!
 }
 
 private class URLRequestBuilderMock: URLRequestBuilder {
