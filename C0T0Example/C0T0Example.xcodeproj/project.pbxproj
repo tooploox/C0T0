@@ -216,9 +216,11 @@
 				TargetAttributes = {
 					F9076609214191E800F29954 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
 					};
 					F907661D214191E900F29954 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = F9076609214191E800F29954;
 					};
 				};
@@ -516,7 +518,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tooploox.C0T0Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -534,7 +536,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tooploox.C0T0Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -554,7 +556,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tooploox.C0T0ExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/C0T0Example.app/C0T0Example";
 			};
@@ -575,7 +577,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tooploox.C0T0ExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/C0T0Example.app/C0T0Example";
 			};
