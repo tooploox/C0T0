@@ -8,8 +8,8 @@ target 'C0T0Example' do
   target 'C0T0ExampleTests' do
     inherit! :search_paths
     
-    pod 'Quick', '~> 1.3.0'
-    pod 'Nimble', '~> 7.1.2'
+    pod 'Quick', '~> 2.1'
+    pod 'Nimble', '~> 8.0'
   end
 
 end

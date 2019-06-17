@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -268,17 +268,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-C0T0Example/Pods-C0T0Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/C0T0/C0T0.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-C0T0Example/Pods-C0T0Example-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/C0T0.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-C0T0Example/Pods-C0T0Example-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-C0T0Example/Pods-C0T0Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-C0T0Example/Pods-C0T0Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2D468522DF137A8D794C81AC /* [CP] Embed Pods Frameworks */ = {
@@ -286,19 +285,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-C0T0ExampleTests/Pods-C0T0ExampleTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
-				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-C0T0ExampleTests/Pods-C0T0ExampleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-C0T0ExampleTests/Pods-C0T0ExampleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-C0T0ExampleTests/Pods-C0T0ExampleTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-C0T0ExampleTests/Pods-C0T0ExampleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D45AD7E09C25ABADEF405972 /* [CP] Check Pods Manifest.lock */ = {
@@ -520,7 +516,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tooploox.C0T0Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -538,7 +534,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tooploox.C0T0Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -558,7 +554,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tooploox.C0T0ExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/C0T0Example.app/C0T0Example";
 			};
@@ -579,7 +575,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tooploox.C0T0ExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/C0T0Example.app/C0T0Example";
 			};
